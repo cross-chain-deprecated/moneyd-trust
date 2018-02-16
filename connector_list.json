@@ -1,0 +1,7 @@
+{
+  "live": [
+  ],
+  "test": [
+    "amundsen.ilpdemo.org:1810"
+  ]
+}

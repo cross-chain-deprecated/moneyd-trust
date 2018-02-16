@@ -1,0 +1,41 @@
+{
+  "name": "moneyd-trust",
+  "version": "1.0.0",
+  "description": "ILP provider using XRP payment channels",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "good-table": "^1.0.3",
+    "ilp-connector": "github:interledgerjs/ilp-connector",
+    "ilp-plugin-btp": "^1.1.8",
+    "ilp-plugin-mini-accounts": "^3.3.1",
+    "ilp-store-memory": "^1.0.0",
+    "inquirer": "^5.0.1",
+    "yargs": "^10.1.1"
+  },
+  "bin": {
+    "moneyd": "./bin/index.js"
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/interledgerjs/moneyd-trust.git"
+  },
+  "bugs": {
+    "url": "https://github.com/interledgerjs/moneyd-trust/issues"
+  },
+  "homepage": "https://github.com/interledgerjs/moneyd-trust#readme"
+}
