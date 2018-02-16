@@ -18,8 +18,7 @@
 
 ## Quick Start
 
-If you already have an XRP account with 35 XRP or more, use the [Livenet](#live-network) instructions.
-Otherwise, you can still follow the [Testnet](#test-network) instructions. For development in an offline
+You can follow the [Testnet](#test-network) instructions. For development in an offline
 environment, you can run your own [Local Testnet](#local-test-network). 
 
 ### Test Network
@@ -35,8 +34,7 @@ moneyd configure --testnet
 moneyd start --testnet
 ```
 
-Give it a minute to initialize a channel, then you're done! A configuration
-file will be created in `~/.moneyd.test.json`.
+A configuration file will be created in `~/.moneyd.test.json`.
 
 So long as that command is running, you'll have access to ILP via port 7768.
 The [Sending Payments](#sending-payments) section describes servers on the live
@@ -49,21 +47,16 @@ You'll need:
 
 - Node v8.9.4 or higher.
 - Permissions to install global node modules.
-- An XRP secret (with more than 35 XRP to cover reserve and channel funding).
 
 Just run:
 
 ```sh
 npm install -g moneyd
-moneyd configure --secret YOUR_XRP_SECRET
+moneyd configure
 moneyd start
 ```
 
-Your XRP secret (or "seed") is the base58-encoded string that starts with an 's'.
-
-Give it a minute to initialize a channel, then you're done! A configuration
-file will be created in `~/.moneyd.json`.
-
+A configuration file will be created in `~/.moneyd.json`.
 
 So long as that command is running, you'll have access to ILP via port 7768.
 For some commands you can do, look at [Sending Payments](#sending-payments).
@@ -95,9 +88,6 @@ to `localhost:7768`. By default, only connections from localhost are accepted.
 
 The `ilp-plugin` repo is already designed to do this, so `ilp-curl` and many
 other tools will work right out of the box.
-
-Because it's in early stages, don't use it
-with a ripple account that has too much money.
 
 ## Advanced Usage
 
@@ -135,49 +125,9 @@ ssh -N -L 7768:localhost:7768 user@example.com
 
 Replace the `user@example.com` with the server on which you're running moneyd.
 
-### Reconciliation
-
-If you crash or encounter a bug, you might find that your moneyd instance forgot
-to send a claim to its parent connector. This results in the parent connector thinking
-you owe it money, and refusing to forward any of your packets.
-
-To fix this, just stop moneyd and run:
-
-```
-moneyd topup --amount 1000
-```
-
-You can adjust the amount if you need to reconcile more. The amount is
-represented in XRP drops; 1000000 is a single XRP so these amounts are
-typically kept quite small.
-
-### Account Info
-
-You can get information about your XRP account's balance and outstanding
-payment channels. To access this information, run:
-
-```
-moneyd info
-```
-
-### Clean Up Channels
-
-Sometimes you want to get your money back out of a payment channel. Moneyd
-provides a tool to do this. Expect it to take an hour for the channel to fully close;
-this gives the counterparty a chance to submit their best claim. Once the channel has
-fully expired your funds will be available again.
-
-```
-moneyd cleanup
-```
-
-If you start moneyd and its previous channel is closing or closed, it will
-automatically open a fresh channel.
-
 ## Multiple Instances
 
-Sometimes you want to run several instances of moneyd with for the same XRP
-account and parent connector.
+Sometimes you want to run several instances of moneyd with for the same parent connector.
 
 In order to distinguish your instances of moneyd, set (or change) the `"name"`
 field in your `~/.moneyd.json`. This `"name"` will be a segment of your ILP
@@ -186,15 +136,12 @@ parent BTP host.
 
 ```json
 {
-  "secret": "your_xrp_secret",
   "parent": "your_parent_host",
   "name": "example-user"
 }
 ```
 
-You can use as many different `"name"`s as you want. If you run out of XRP from
-opening up channels, just follow [Clean Up Channels](#clean-up-channels) to
-reclaim it.
+You can use as many different `"name"`s as you want.
 
 ## Sending Payments
 
